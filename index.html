@@ -42,8 +42,7 @@
 
             // Example validation logic (replace with actual authentication logic)
             if (username === 'admin' && password === 'password123') {
-                alert('Login Successful');
-                // Redirect or further processing here
+                window.location.href = 'dashboard.html';
             } else {
                 const errorMessage = document.getElementById('errorMessage');
                 errorMessage.classList.remove('hidden');

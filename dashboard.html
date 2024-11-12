@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spreadsheet Creator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@1.14.0/dist/full.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss-jit-cdn"></script>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="card w-full max-w-4xl bg-white shadow-xl p-5">
+        <div class="card-body">
+            <h2 class="card-title text-center text-2xl font-bold mb-6">Spreadsheet Simulator</h2>
+            <div class="overflow-x-auto">
+                <table id="spreadsheet" class="table table-bordered w-full">
+                    <thead>
+                        <tr>
+                            <th class="bg-gray-200">#</th>
+                            <th class="bg-gray-200">A</th>
+                            <th class="bg-gray-200">B</th>
+                            <th class="bg-gray-200">C</th>
+                            <th class="bg-gray-200">D</th>
+                            <th class="bg-gray-200">E</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="bg-gray-200 font-bold">1</td>
+                            <td contenteditable="true" class="input input-bordered"></td>
+                            <td contenteditable="true" class="input input-bordered"></td>
+                            <td contenteditable="true" class="input input-bordered"></td>
+                            <td contenteditable="true" class="input input-bordered"></td>
+                            <td contenteditable="true" class="input input-bordered"></td>
+                        </tr>
+                        <tr>
+                            <td class="bg-gray-200 font-bold">2</td>
+                            <td contenteditable="true" class="input input-bordered"></td>
+                            <td contenteditable="true" class="input input-bordered"></td>
+                            <td contenteditable="true" class="input input-bordered"></td>
+                            <td contenteditable="true" class="input input-bordered"></td>
+                            <td contenteditable="true" class="input input-bordered"></td>
+                        </tr>
+                        <tr>
+                            <td class="bg-gray-200 font-bold">3</td>
+                            <td contenteditable="true" class="input input-bordered"></td>
+                            <td contenteditable="true" class="input input-bordered"></td>
+                            <td contenteditable="true" class="input input-bordered"></td>
+                            <td contenteditable="true" class="input input-bordered"></td>
+                            <td contenteditable="true" class="input input-bordered"></td>
+                        </tr>
+                        <!-- Add more rows as needed -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="form-control mt-6">
+                <button id="addRow" class="btn btn-primary w-full">Add Row</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('addRow').addEventListener('click', function() {
+            const tableBody = document.querySelector('#spreadsheet tbody');
+            const newRow = document.createElement('tr');
+            const rowIndex = tableBody.rows.length + 1;
+
+            newRow.innerHTML = `
+                <td class="bg-gray-200 font-bold">${rowIndex}</td>
+                <td contenteditable="true" class="input input-bordered"></td>
+                <td contenteditable="true" class="input input-bordered"></td>
+                <td contenteditable="true" class="input input-bordered"></td>
+                <td contenteditable="true" class="input input-bordered"></td>
+                <td contenteditable="true" class="input input-bordered"></td>
+            `;
+
+            tableBody.appendChild(newRow);
+        });
+    </script>
+</body>
+</html>
