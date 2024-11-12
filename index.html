@@ -38,45 +38,7 @@
         </div>
     </div>
 
-    <script>
-        import { _supabase } from "./supabase.js";
-
-        document.getElementById('loginForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-
-            // Function to verify if user exists in the database and authenticate
-            async function verifyUser(username, password) {
-                try {
-                    // Query the users table to find the user by username
-                    const { data: user, error: userError } = await _supabase
-                        .from('users')
-                        .select('*')
-                        .eq('username', username)
-                        .single();
-
-                    if (userError) {
-                        console.error('Error fetching user:', userError.message);
-                        return { success: false, message: 'User not found' };
-                    }
-
-                    // Check if the password matches (in a real scenario, you'd hash and compare)
-                    if (user.password === password) {
-                        console.log('User authenticated:', user);
-                        return { success: true, data: user };
-                    } else {
-                        console.error('Invalid password');
-                        return { success: false, message: 'Invalid password' };
-                    }
-                } catch (err) {
-                    console.error('Unexpected error:', err);
-                    return { success: false, message: 'An unexpected error occurred' };
-                }
-            }
-        });
-    </script>
+    <script src="supabase.js"></script>
 </body>
 
 </html>
