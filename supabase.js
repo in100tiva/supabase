@@ -25,6 +25,7 @@ async function verifyUser(username, password) {
         // Check if the password matches (in a real scenario, you'd hash and compare)
         if (user.password === password) {
             console.log('User authenticated:', user);
+            window.location.href = 'dashboard.html';
             return { success: true, data: user };
         } else {
             console.error('Invalid password');
