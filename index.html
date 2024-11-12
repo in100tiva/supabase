@@ -51,7 +51,7 @@
             async function verifyUser(username, password) {
                 try {
                     // Query the users table to find the user by username
-                    const { data: user, error: userError } = await supabase
+                    const { data: user, error: userError } = await _supabase
                         .from('users')
                         .select('*')
                         .eq('username', username)
