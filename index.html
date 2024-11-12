@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,9 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/daisyui@1.14.0/dist/full.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/tailwindcss-jit-cdn"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@1.35.7/dist/umd/supabase.min.js"></script>
 </head>
+
 <body class="flex items-center justify-center min-h-screen bg-gray-100">
     <div class="card w-96 bg-white shadow-xl p-5">
         <div class="card-body">
@@ -17,13 +20,15 @@
                     <label class="label">
                         <span class="label-text">Username</span>
                     </label>
-                    <input type="text" id="username" placeholder="Enter your username" class="input input-bordered w-full">
+                    <input type="text" id="username" placeholder="Enter your username"
+                        class="input input-bordered w-full">
                 </div>
                 <div class="form-control mb-4">
                     <label class="label">
                         <span class="label-text">Password</span>
                     </label>
-                    <input type="password" id="password" placeholder="Enter your password" class="input input-bordered w-full">
+                    <input type="password" id="password" placeholder="Enter your password"
+                        class="input input-bordered w-full">
                 </div>
                 <div class="form-control mb-4">
                     <button type="submit" class="btn btn-primary w-full">Login</button>
@@ -34,20 +39,44 @@
     </div>
 
     <script>
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        import { _supabase } from "./supabase.js"
+
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
             e.preventDefault();
 
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
-            // Example validation logic (replace with actual authentication logic)
-            if (username === 'admin' && password === '1234') {
-                window.location.href = 'dashboard.html';
-            } else {
-                const errorMessage = document.getElementById('errorMessage');
-                errorMessage.classList.remove('hidden');
+            // Function to verify if user exists in the database and authenticate
+            async function verifyUser(username, password) {
+                try {
+                    // Query the users table to find the user by username
+                    const { data: user, error: userError } = await supabase
+                        .from('users')
+                        .select('*')
+                        .eq('username', username)
+                        .single();
+
+                    if (userError) {
+                        console.error('Error fetching user:', userError.message);
+                        return { success: false, message: 'User not found' };
+                    }
+
+                    // Check if the password matches (in a real scenario, you'd hash and compare)
+                    if (user.password === password) {
+                        console.log('User authenticated:', user);
+                        return { success: true, data: user };
+                    } else {
+                        console.error('Invalid password');
+                        return { success: false, message: 'Invalid password' };
+                    }
+                } catch (err) {
+                    console.error('Unexpected error:', err);
+                    return { success: false, message: 'An unexpected error occurred' };
+                }
             }
         });
     </script>
 </body>
+
 </html>
