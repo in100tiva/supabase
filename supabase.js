@@ -39,5 +39,6 @@ async function verifyUser(username, password) {
     }
 }
 
-// Export functions for use in other scripts
-export { supabase, verifyUser };
+// Make functions available globally
+window.supabase = supabase;
+window.verifyUser = verifyUser;
